@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="dot"></div>
+    <div class="cricle"></div>
+    <style>
+        .dot {
+            width:10px;
+            height: 10px;
+            background-color: black;
+            border-radius: 50%;
+            position: absolute;
+            left: calc(50% - 10px);
+            top: calc(50% - 10px);
+        }
+        .cricle {
+              /*旋转的小球*/
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            /*定位，相对body设置绝对定位*/
+            position: absolute;
+            left: calc(50% + 60px);
+            top: calc(50% + 60px);
+            border-radius: 50%;
+            /*添加动画*/
+            /*动画名称*/
+            animation-name: xuanzhuan;
+            animation-duration: 3s;
+            animation-iteration-count:infinite;
+            /*速率默认ease（慢-快-慢）
+                ease-in(慢-快)
+                ease-out(快-慢)*/
+            animation-timing-function:ease;
+            animation-timing-function: cubic-bezier(0.05,0.66,0.28,1.2);
+            /*origin赋值为x轴 y轴的坐标点*/ 
+            /* 默认坐标在几何中心位置。左上角位置坐标为0 0。 */
+            transform-origin: 0 0;  
+            /*添加变色的动画----不能在这里添加新的动画，旧的会被覆盖，可以将两个动画属性写在一起*/
+            /*animation: changeColor 3s linear infinite;*/
+        
+        }
+
+         /*动画规则*/
+         @keyframes xuanzhuan{
+            from{
+                transform: rotate(0);
+            }
+            to{
+                transform: rotate(360deg);
+            }
+        }
+        @keyframes changeColor{
+            0%{
+                background-color: red;
+            }
+            20%{
+                background-color: forestgreen;
+            }
+            40%{
+                background-color: darkblue;
+            }
+            60%{
+                background-color: tomato;
+            }
+            80%{
+                background-color: mediumvioletred;
+            }
+            100%{
+                background-color: yellow;
+            }
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>一开始就渐隐交出效果过渡</title>
+</head>
+
+<body>
+    <div id="div">
+
+    </div>
+    <button id="btn">消失前渐隐</button>
+    <style>
+        div {
+            background-color: red;
+            width: 100px;
+            height: 100px;
+            transition: all 2s;
+            animation: inout 2s;
+        }
+
+        div:hover {}
+
+        @keyframes inout {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 0.9;
+            }
+        }
+        div.out {
+            animation: outin 2s linear forwards;
+        }
+        @keyframes outin {
+            from {
+                opacity: 0.9;
+            }
+
+            to {
+                opacity: 0;
+                display: none;
+            }
+        }
+    </style>
+    <script>
+        // 利用animation的回调函数实现动画后消失
+      const btn  =document.getElementById('btn')
+       const div = document.getElementById('div')
+       btn.addEventListener('click', function(){
+          div.className = 'out'
+       })
+       div.addEventListener('animationend', ()=>{
+        div.style.display = 'none'
+       })
+    </script>
+</body>
+
+</html>
