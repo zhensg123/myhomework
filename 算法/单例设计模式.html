@@ -9,6 +9,12 @@
 <body>
     <script>
         // 单例设计模式
+        function singleModel(fn){
+          let res = null
+          return function(){
+            return res || fn.apply()
+          }
+        }
     </script>
 </body>
 </html>

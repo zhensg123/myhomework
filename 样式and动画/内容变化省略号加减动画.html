@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>省略号加减</title>
+</head>
+
+<body>
+    <div id="box">
+        等待状态<span id="span">...</span>
+    </div>
+    <style>
+        #box {
+            text-align: center;
+        }
+    </style>
+    <script>
+        const box = document.getElementById('box')
+        const span = document.getElementById('span')
+        let num = 3, flag = 0
+        setInterval(() => {
+
+            if(num === 3) {
+                flag = 0
+            }
+            if(num === 1) {
+                flag = 1
+            }
+
+            if(flag ===0) {
+                num--
+            }else {
+                num++
+            }
+            const obj = {
+                1: '.',
+                2: '..',
+                3: '...',
+                0: '...'
+            }
+            span.innerHTML = obj[num]
+        }, 1000)
+    </script>
+</body>
+
+</html>
