@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发布订阅模式</title>
+</head>
+
+<body>
+    <button id="test">点我测试</button>
+    <script>
+        // 什么是发布订阅模式
+        // 发布订阅模式分发布者和订阅者
+        // 需要先订阅之后通知
+        // 首先要有一个缓存对象，可以用数组，然后有一个订阅对象和通知对象
+
+        // 写在一个函数里面可以为 
+        const event = {
+            cache: [],
+            listen: function (fn) {
+                this.cache.push(fn)
+            },
+            trigger: function () {
+                for (let i = 0; i < this.cache.length; i++) {
+                    this.cache[i].apply(this, arguments)
+                }
+            }
+        }
+        // 当然也可以有名字
+        const event2 = {
+            cache: {},
+            listen(key, fn) {
+                if (this.cache[key]) {
+                    this.cache[key] = []
+                }
+                this.cache[key].push(fn)
+            },
+            trigger(key) {
+                if(!this.cache[key]) {
+                    return false
+                }
+                for (let i = 0; i < this.cache[key].length; i++) {
+                    this.cache[i].apply(this)
+                }
+            }
+        }
+
+        // 应用场景举例  真正意义上很多人开发中应用的可以说很少，也正因为如此，才感觉设计模式没有太大意义
+        // 但是就发布订阅模式来说，前端每天都在用，就比如事件，比如事件，名字就是key，每个事件可以绑定不止一个事件
+
+        const btn = document.getElementById('test')
+        btn.addEventListener('click', function(){
+            alert(1)
+        })
+        btn.addEventListener('click', function(){
+            alert(2)
+        })
+
+        // 利用发布订阅模式进行模块之间的通信
+        // 比如vue的$on 和$emit
+    </script>
+</body>
+
+</html>
