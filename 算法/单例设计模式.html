@@ -8,6 +8,8 @@
 </head>
 <body>
     <script>
+       // 什么是单例模式？
+       // 如果有则采用，如果没有则创建一个，全局只有这么一个对象
         // 单例设计模式
         function singleModel(fn){
           let res = null
@@ -15,6 +17,17 @@
             return res || fn.apply()
           }
         }
+
+      // 应用场景
+      // 全局登录弹窗
+
+      // 创建弹窗的函数
+      function createDiv(){
+        const div = document.createElement('div')
+        div.innerHTML = '测试'
+        document.body.appendChild(div)
+        return true
+      }
     </script>
 </body>
 </html>

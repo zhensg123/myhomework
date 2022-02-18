@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>命令模式</title>
+</head>
+<body>
+    <script>
+        // 什么是命令模式，有没有通用模式？
+        // 命令模式是若干命令构成，可以调度、执行取消命令。
+        // 将请求封装成对象，分离命令接受者和发起者之间的耦合。 
+        const menu1 = {
+            refresh(){
+                console.log('重新刷新')
+            }
+        }
+
+        const menu2 = {
+            refresh(){
+                console.log('重新刷新')
+            }
+        }
+
+        const menu3 = {
+            refresh(){
+                console.log('重新刷新')
+            }
+        }
+       // 命令执行
+       const execute = {
+           function(menu){
+               menu.refresh()
+           }
+       }
+
+    </script>
+</body>
+</html>

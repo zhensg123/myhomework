@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>代理模式</title>
+</head>
+
+<body>
+    <script>
+
+
+        // 什么是代理模式
+        // 我不直接和对象接触，而是通过一个代理对象与对象接触，本质是增加了关系联，或者添加了一个中间间，实现某个特定的目的
+
+
+        // 应用场景举例  根据代理的作用又分为保护代理、、缓存代理和虚拟代理
+        // 缓存代理
+        // 计算数据大小的缓存
+
+        function cacheData(a, b) {
+            const cacheObj = {}
+            return function () {
+                if (!cacheObj[a + b + '']) {
+                    cacheObj[a + b + ''] = a * b
+                } else {
+                    return cacheObj[a + b + '']
+                }
+
+                return a * b
+            }
+        }
+
+
+        // 保护代理
+        var superStart = {
+            name: '小鲜肉',
+            playAdvertisement(ad) {
+                console.log(ad)
+            }
+        }
+
+        var proxyAssistant = {
+            name: '张某某',
+            playAdvertisement: function (reward, ad) {
+                if (reward > 1000000) {             // 如果报酬超过100w
+                    console.log('没问题，我们小鲜鲜最喜欢拍广告了！')
+                    SuperStar.playAdvertisement(ad)
+                } else
+                    console.log('没空，滚！')
+            }
+        }
+
+        // 虚拟代理 比如图片加载过程中的loading图片显示
+
+        function MyImg(_class) {
+            var _img = document.createElement('img');
+            this.setSrc = function (_src) {
+                _img.src = _src;
+            }
+            document.getElementsByClassName(_class)[0].appendChild(_img);
+        }
+
+        var ProxyMyImg = (function () {//代理MyImg
+            var _img = new Image();
+            var _myImg = new MyImg('demo');
+            _img.onload = function () {//_img的src加载完成后,_myImg的src被_img的src替换
+                setTimeout(function () {
+                    _myImg.setSrc(_img.src)//这里设置请求过的src直接从缓存读取,速度飞快不会出现一点点加载图片的情况
+                }, 1000)
+            }
+            return function (occupySrc, src) {
+                _myImg.setSrc(occupySrc);//预加载占位图片
+                _img.src = src;
+            }
+        })()
+
+        ProxyMyImg('占位图片src', '最终加载图片src')
+
+    </script>
+</body>
+
+</html>
