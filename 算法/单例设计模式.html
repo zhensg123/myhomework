@@ -9,6 +9,14 @@
 <body>
     <script>
        // 什么是单例模式？
+       // 保证一个类仅有一个实例，并提供一个访问它的全局访问点
+       // 通用的惰性单例实现
+       const getSingle = function(fn){
+         let result = null
+         return function(...args){
+           return result || (result = fn.apply(this, args))
+         }
+       }
        // 如果有则采用，如果没有则创建一个，全局只有这么一个对象
         // 单例设计模式
         function singleModel(fn){

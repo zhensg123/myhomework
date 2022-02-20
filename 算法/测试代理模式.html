@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+         var plus = function(...args){
+           var a = 0;
+           console.log(args, '22222')
+           for(let i=0, l= args.length; i< l; i++){
+               a = a + args[i]
+           }
+           return a
+       }
+        // 创建缓存代理工厂
+        const createProxyFactory = function(fn){
+          let cache = {}
+          return function(...arges){
+              let args = arges.join(',')
+              if(args in cache) {
+                  console.log(222, '我是缓存', cache[args])
+                  return cache[args]
+              }
+              return cache[args] = fn.apply(this, arges)
+          }
+        }
+
+        const proxyPlus = createProxyFactory(plus)
+        console.log(proxyPlus(1,2,3,4))
+        console.log(proxyPlus(1,2,3,4))
+    </script>
+</body>
+</html>

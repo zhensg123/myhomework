@@ -10,12 +10,42 @@
 
 <body>
     <script>
-
-
         // 什么是代理模式
+        // 代理模式是为一个对象提供一个代用品或者占位符，以便控制对它的访问
         // 我不直接和对象接触，而是通过一个代理对象与对象接触，本质是增加了关系联，或者添加了一个中间间，实现某个特定的目的
+        // 代理模式的通用实现 
 
+        const flower = function(){
 
+        }
+
+        const xiaomin = {
+            sendFlower:function(){
+                let flower = new flower()
+                target.receiverFlower(flower)
+            }
+        }
+
+        const B = {
+            receiverFlower(flower){
+                A.listenGoodMood(function(){
+                    A.receiverFlower(flower)
+                })
+            }
+        }
+
+        const A = {
+            receiverFlower(flower){
+                console.log('收到花' + flower)
+            },
+            listenGoodMood(fn){
+               setTimeout(()=>{
+                   fn()
+               }, 10000)
+            }
+        }
+
+        xiaomin.sendFlower(B)
         // 应用场景举例  根据代理的作用又分为保护代理、、缓存代理和虚拟代理
         // 缓存代理
         // 计算数据大小的缓存
@@ -32,8 +62,24 @@
                 return a * b
             }
         }
-
-
+       var plus = function(){
+           var a = 0;
+           for(let i=0, l= arguments.length; i< 1; i++){
+               a = a + arguments[i]
+           }
+           return a
+       }
+        // 创建缓存代理工厂
+        const createProxyFactory = function(fn){
+          let cache = {}
+          return function(...args){
+              let args = args.join(',')
+              if(args in cache) {
+                  return cache[args]
+              }
+              return cache[args] = fn.apply(this, arguments)
+          }
+        }
         // 保护代理
         var superStart = {
             name: '小鲜肉',
@@ -45,7 +91,7 @@
         var proxyAssistant = {
             name: '张某某',
             playAdvertisement: function (reward, ad) {
-                if (reward > 1000000) {             // 如果报酬超过100w
+                if (reward > 1000000) { // 如果报酬超过100w
                     console.log('没问题，我们小鲜鲜最喜欢拍广告了！')
                     SuperStar.playAdvertisement(ad)
                 } else
@@ -63,22 +109,82 @@
             document.getElementsByClassName(_class)[0].appendChild(_img);
         }
 
-        var ProxyMyImg = (function () {//代理MyImg
+        var ProxyMyImg = (function () { //代理MyImg
             var _img = new Image();
             var _myImg = new MyImg('demo');
-            _img.onload = function () {//_img的src加载完成后,_myImg的src被_img的src替换
+            _img.onload = function () { //_img的src加载完成后,_myImg的src被_img的src替换
                 setTimeout(function () {
-                    _myImg.setSrc(_img.src)//这里设置请求过的src直接从缓存读取,速度飞快不会出现一点点加载图片的情况
+                    _myImg.setSrc(_img.src) //这里设置请求过的src直接从缓存读取,速度飞快不会出现一点点加载图片的情况
                 }, 1000)
             }
             return function (occupySrc, src) {
-                _myImg.setSrc(occupySrc);//预加载占位图片
+                _myImg.setSrc(occupySrc); //预加载占位图片
                 _img.src = src;
             }
         })()
 
         ProxyMyImg('占位图片src', '最终加载图片src')
 
+
+        const myImage = (function () {
+            const imgNode = document.createElement('img')
+            document.body.appendChild(imgNode)
+
+            return {
+                setSrc(src) {
+                    imgNode.src = src
+                }
+            }
+        })()
+
+        // 虚拟代理 增加一个环节，用于选择性的对接A
+        const proxyImage = (function () {
+            var img = new Image()
+            img.onload = function () {
+                myImage.setSrc(this.src)
+            }
+
+            return {
+                setSrc(src) {
+                    myImage.setSrc('loading图片地址')
+                    img.src = src
+                }
+            }
+        })()
+
+        // 合并http请求
+
+        // 访问对象
+        const syncFile = function (id) {
+            console.log('开始同步文件，id为:' + id)
+        }
+        // 占位符或者代理为这个
+        const proxySynchronousFile = (function () {
+            let cache = [],
+                timer = null
+            return function (id) {
+                cache.push(id)
+                if (timer) {
+                    return
+                }
+
+                timer = setTimeout(() => {
+                    syncFile(cache.join(','))
+                    clearTimeout(timer)
+                    timer = null
+                    cache = []
+                }, 2000)
+            }
+        })()
+
+        var checkbox = document.getElementsByTagName('input')
+        for(let i =0, c; c= checkbox[i++];){
+          c.onclick = function(){
+              if(this.checked === true) {
+                  proxySynchronousFile(this.id)
+              }
+          }
+        }
     </script>
 </body>
 

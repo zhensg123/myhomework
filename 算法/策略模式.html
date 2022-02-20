@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>策略模式</title>
+</head>
+<body>
+    <script>
+        // 什么是策略模式
+        // 策略模式定义:定义一系列算法，把他们一个个封装起来，并且使它们可以相互替换。
+
+       // 顾名思义，策略模式有不止一个策略
+       // 策略模式的一个典型实现
+       const strategies = {
+           s:function(salary){
+               return salary*4
+           },
+           a: function(salary){
+            return  salary*3
+           },
+           b: function(salary){
+            return  salary*2
+           }
+       }
+       
+      // 将策略模式的变量都做了封装
+       const calculateBonus = function(level, salary){
+           return strategies[level](salary)
+       }
+
+    </script>
+</body>
+</html>
