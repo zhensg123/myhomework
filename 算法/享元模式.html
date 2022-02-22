@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>享元模式</title>
+</head>
+<body>
+    <script>
+        // 享元模式
+        // 享元模式概念: 享元模式要求将对象的属性划分为内部状态和外部状态。享元模式的目标是尽量减少共享对象的数量。
+        
+        // 享元模式的一种实现
+        const model = function(sex){
+           this.sex =sex
+        }
+        model.test = 111
+        model.prototype.takePhoto = function(){
+            console.log('sex=' + this.sex + ' underwear=' + this.underWear)
+        }
+
+        const maleModel = new model('male'),
+        femaleModel = new model('female')
+
+        for(let i = 0; i < 50; i++){
+            maleModel.underWear = 'underWear' + i
+            maleModel.takePhoto()
+
+            console.log(maleModel, model.test, 'maleModelmaleModel')
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组合模式</title>
+</head>
+
+<body>
+    <script>
+        // 组合命令概念:组合模式将对象组合成树形结构，以表示“部分-整体”的层次结构。
+        // 组合模式的一种实现
+        // 新建一个关门的命令
+        var closeDoorCommand = {
+            execute: function () {
+                console.log('关门');
+            }
+        };
+        // 新建一个开电脑的命令
+        var openPcCommand = {
+            execute: function () {
+                console.log('开电脑');
+            }
+        };
+        // 登陆QQ的命令
+        var openQQCommand = {
+            execute: function () {
+                console.log('登录QQ');
+            }
+        };
+
+        // 创建一个宏命令
+        var MacroCommand = function () {
+            return {
+                // 宏命令的子命令列表
+                commandsList: [],
+                // 添加命令到子命令列表
+                add: function (command) {
+                    this.commandsList.push(command);
+                },
+                // 依次执行子命令列表里面的命令
+                execute: function () {
+                    for (var i = 0, command; command = this.commandsList[i++];) {
+                        command.execute();
+                    }
+                }
+            }
+        };
+
+        var macroCommand = MacroCommand();
+        macroCommand.add(closeDoorCommand);
+        macroCommand.add(openPcCommand);
+        macroCommand.add(openQQCommand);
+        macroCommand.execute();
+
+        // 组合模式的应用举例
+        
+    </script>
+</body>
+
+</html>

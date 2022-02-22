@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>职责量模式</title>
+</head>
+<body>
+    <script>
+        // 什么是职责链模式
+        // 概念: 使多个对象都有机会处理请求，从而避免请求的发送者和接受者之间的耦合关系。
+         // 职责链模式的一种实现  同步实现
+         const chain = function(fn) {
+             this.fn = fn
+             this.successor = null
+         }
+
+         chain.prototype.setNextSuccessor = function(successor){
+           return this.successor = successor
+         }
+
+
+         chain.prototype.passReuqest = function(){
+              const ret = this.fn.apply(this, arguments)
+              if(ret === 'nextSuccessor') {
+                  return  this.successor && this.successor.passReuqest.apply(this.successor, arguments)
+              }
+              return ret
+         }
+
+    </script>
+</body>
+</html>
