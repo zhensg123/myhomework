@@ -29,6 +29,12 @@
               return ret
          }
 
+
+        // 异步的职责链模式
+        chain.prototype.next = function(){
+            return this.successor && this.successor.passReuqest.apply(this.successor, arguments)
+        }
+
     </script>
 </body>
 </html>
