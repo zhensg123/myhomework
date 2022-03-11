@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        new Promise(resolve => {
+            new Promise(resolve => {
+                console.log('promise1');
+                resolve();
+
+            }).then(function () {
+                setTimeout(() => console.log('timeout2'), 0);
+                console.log('then1')
+            })
+            new Promise(resolve => {
+                console.log('promise2');
+                resolve();
+
+            }).then(function () {
+                setTimeout(() => console.log('timeout3'), 0);
+                console.log('then2')
+            })
+            setTimeout(function () {
+                console.log('timeout1');
+            }, 0);
+            console.log('script end1');
+            console.log('promise4');
+            resolve();
+
+        }).then(function () {
+            setTimeout(() => console.log('timeout4'), 0);
+            console.log('then4')
+        })
+        new Promise(resolve => {
+            console.log('promise3');
+            resolve();
+
+        }).then(function () {
+            setTimeout(() => console.log('timeout6'), 0);
+            console.log('then3')
+        })
+        setTimeout(function () {
+            console.log('timeout5');
+        }, 0);
+        console.log('script end2');
+    </script>
+</body>
+
+</html>

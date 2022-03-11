@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>块级格式化上下文</title>
+</head>
+
+<body>
+    <div class="divbox">
+        <div class="div1">
+            <div></div>
+        </div>
+        <div class="div2"></div>
+    </div>
+    <script>
+        // 块级格式化上下文
+        // 解决外边距margin重叠可以使用
+        // 2，让其中一个为display:inline-block;
+        // 底部元素设置为浮动 float:left;
+        
+        
+        //     底部元素的position的值为absolute/fixed
+        
+        
+        //     在设置margin-top/bottom值时统一设置上或下
+
+
+    </script>
+    <style>
+
+
+        /* div {
+             border:1px solid red;
+             height: 100px;
+             width: 100px;
+         } */
+        .div1 {
+            margin-bottom: 10px;
+            overflow: hidden;
+            border: 1px solid red;
+            height: 100px;
+            width: 100px;
+        }
+
+        .div2 {
+            margin-top: 20px;
+            overflow: hidden;
+            border: 1px solid red;
+            height: 100px;
+            width: 100px;
+            position:fixed;
+        }
+    </style>
+</body>
+
+</html>

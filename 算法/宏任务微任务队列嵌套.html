@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Javascript 有一个 main thread 主线程和 call-stack 调用栈(执行栈)，所有的任务都会被放到调用栈等待主线程执行。
+        console.log('start')
+        setTimeout(() => {
+            console.log('timer1')
+            Promise.resolve().then(function () {
+                console.log('promise1')
+            })
+        }, 0)
+        setTimeout(() => {
+            console.log('timer2')
+            Promise.resolve().then(function () {
+                console.log('promise2')
+            })
+        }, 0)
+        Promise.resolve().then(function () {
+            console.log('promise3')
+            setTimeout(() => {
+                console.log('timer211')
+            }, 0)
+        })
+        console.log('end')
+
+
+
+        Promise.resolve().then(function () {
+            setTimeout(() => {
+                console.log('111')
+            }, 0)
+        })
+        Promise.resolve().then(function () {
+            setTimeout(() => {
+                console.log('222')
+                setTimeout(()=>{
+                    console.log(333)
+                })
+            }, 0)
+        })
+
+
+        // 执行栈和任务队列的关系 
+        
+    </script>
+</body>
+
+</html>

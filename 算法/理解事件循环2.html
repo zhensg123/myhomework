@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        new Promise(resolve => {
+            resolve();
+        }).then(function () {
+            console.log(1111)
+
+            setTimeout(() => console.log('timeout2'), 0);
+        })
+        new Promise(resolve => {
+            resolve();
+        }).then(function () {
+            setTimeout(() => console.log('timeout1'), 0);
+        })
+        new Promise(resolve => {
+            resolve();
+        }).then(function () {
+            new Promise(resolve => {
+                resolve();
+            }).then(function () {
+                setTimeout(() => console.log('timeout5'), 0);
+                console.log(555)
+
+                new Promise(resolve => {
+                    resolve();
+                }).then(function () {
+                    console.log(444)
+
+                    setTimeout(() => console.log('timeout7'), 0);
+                })
+            })
+        })
+        new Promise(resolve => {
+            resolve();
+        }).then(function () {
+            console.log(221)
+            setTimeout(() => console.log('timeout3'), 0);
+            new Promise(resolve => {
+                resolve();
+            }).then(function () {
+                console.log(3333)
+                setTimeout(() => console.log('timeout6'), 0);
+            })
+        })
+        setTimeout(() => console.log('timeout4'), 0);
+        setTimeout(() =>{
+            setTimeout(() => console.log('timeout8'), 0);
+        }, 0);
+        setTimeout(() =>{
+            setTimeout(() => console.log('timeout9'), 0);
+        }, 0);
+        
+
+    </script>
+</body>
+
+</html>
